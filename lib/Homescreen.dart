@@ -98,14 +98,15 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                 )),
                 Expanded(
-                    child: GestureDetector(onDoubleTap: roll,
-                                          child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Image(
-                        image:
-                            AssetImage("assets/images/dice-png-$rightDice.png")),
-                ),
-                    ))
+                    child: GestureDetector(
+                  onDoubleTap: roll,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Image(
+                        image: AssetImage(
+                            "assets/images/dice-png-$rightDice.png")),
+                  ),
+                ))
               ],
             ),
             RaisedButton(
