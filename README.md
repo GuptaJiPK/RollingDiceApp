@@ -1,4 +1,4 @@
-# Rolling_Dice_2
+# RollingDice
 
 A new Flutter project.
 
