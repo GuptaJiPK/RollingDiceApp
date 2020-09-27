@@ -88,19 +88,24 @@ class _HomescreenState extends State<Homescreen> {
             Row(
               children: [
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Image(
-                      image:
-                          AssetImage("assets/images/dice-png-$leftDice.png")),
+                    child: GestureDetector(
+                  onDoubleTap: roll,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Image(
+                        image:
+                            AssetImage("assets/images/dice-png-$leftDice.png")),
+                  ),
                 )),
                 Expanded(
-                    child: Padding(
+                    child: GestureDetector(onDoubleTap: roll,
+                                          child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Image(
-                      image:
-                          AssetImage("assets/images/dice-png-$rightDice.png")),
-                ))
+                        image:
+                            AssetImage("assets/images/dice-png-$rightDice.png")),
+                ),
+                    ))
               ],
             ),
             RaisedButton(
