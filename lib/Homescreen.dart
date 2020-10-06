@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -8,14 +10,54 @@ class Homescreen extends StatefulWidget {
   _HomescreenState createState() => _HomescreenState();
 }
 
-class _HomescreenState extends State<Homescreen> {
+class _HomescreenState extends State<Homescreen>
+    with SingleTickerProviderStateMixin {
   int leftDice = 1;
   int rightDice = 1;
-  void roll() {
-    setState(() {
-      leftDice = Random().nextInt(6) + 1;
-      rightDice = Random().nextInt(6) + 1;
+  AnimationController _controller;
+  var animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animate();
+  }
+
+  animate() {
+    _controller = AnimationController(
+      duration: Duration(seconds:3),
+      vsync: this,
+    );
+
+    animation =
+        CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
+
+    animation.addListener(
+      () {
+        setState(() {});
+        print(_controller.value);
+      },
+    );
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() {
+          leftDice = Random().nextInt(6) + 1;
+          rightDice = Random().nextInt(6) + 1;
+        });
+        print("completed");
+        _controller.reverse();
+      }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  void roll() {
+    _controller.forward();
   }
 
   @override
@@ -93,6 +135,7 @@ class _HomescreenState extends State<Homescreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Image(
+                        height: 200 - (animation.value * 200),
                         image:
                             AssetImage("assets/images/dice-png-$leftDice.png")),
                   ),
@@ -103,6 +146,7 @@ class _HomescreenState extends State<Homescreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Image(
+                        height: 200 - (animation.value * 200),
                         image: AssetImage(
                             "assets/images/dice-png-$rightDice.png")),
                   ),
